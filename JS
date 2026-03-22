@@ -1,0 +1,67 @@
+###login
+document.addEventListener("DOMContentLoaded", ()=>{
+    const form=document.querySelector("form");
+    const errorBox=document.getElementById("errorBox");
+    const successBox=document.getElementById("successBox")
+
+    form.addEventListener("submit",function(e){
+        e.preventDefault();
+
+        const Login={
+           
+            Email: document.getElementById("email").value,
+            Password: document.getElementById("password").value,
+
+           
+        };
+        errorBox.textContent="";
+        successBox.textContent="";
+        fetch("/login",{
+            method:"POST",
+            headers:{"content-type":"application/json"},
+            body: JSON.stringify(Login)
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            if(data.success){
+                successBox.textContent="Login successful!";
+                successBox.style.color="green";
+                setTimeout(() => {
+                    window.location.href = "/";
+                }, 800);
+            } else {
+                errorBox.textContent = "Incorrect username or password.";
+            
+            }
+        })
+        .catch(err=> console.error("Error",err))
+    });
+});
+
+###adding to database
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector("form");
+    form.addEventListener("submit", function(e) {
+        e.preventDefault();
+
+        const item = {
+            Name: document.getElementById("Variable1").value,
+            Price: document.getElementById("Variable2").value,
+            Category: document.getElementById("Variable3").value,
+            Description: document.getElementById("Variable4").value,
+        
+        };
+
+        fetch("/add-product", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(item)
+        })
+        .then(res => res.json())
+        .then(data => {
+            alert(data.message);
+            form.reset();
+        })
+        .catch(err => console.error("Error adding to database", err));
+    });
+});

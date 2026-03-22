@@ -1,0 +1,53 @@
+from flask import Flask, request, jsonify, session, redirect, render_template
+app = Flask(__name__, static_folder="static", static_url_path="/static")
+app.secret_key = "secretkey"
+###
+###logging in
+@app.route("/login", methods=["POST"])
+def login():
+    data = request.json
+
+    email = data.get("Email")
+    password = data.get("Password")
+
+    if not email or not password:
+        return jsonify({"success": False, "error": "Missing credentials"})
+
+    conn = get_db_connection()
+    cursor = conn.execute(
+        "SELECT * FROM user WHERE Email=? AND Password=?",
+        (email, password)
+    )#checks if the email and password match
+
+    customer = cursor.fetchone()
+    conn.close()
+
+    if customer:
+        session["email"] = email
+        session["name"] = user["Name"]
+        return jsonify({"success": True})
+    else:
+        return jsonify({"success": False})
+
+
+
+###inserting something to database
+@app.route("/add", methods=["POST"])
+def add():
+    data = request.json
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("""
+        INSERT INTO Database (Variable1, Variable2, Variable3, Variable4)
+        VALUES (?, ?, ?, ?)
+    """, (
+        data['Variable1'],          
+        data['Variable2'],   
+        data['Variable3'],      
+        data['Variable4']          
+    ))
+
+    conn.commit()
+    conn.close()
+    return jsonify({"message": " added successfully"})

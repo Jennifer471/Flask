@@ -2,6 +2,22 @@ from flask import Flask, request, jsonify, session, redirect, render_template
 app = Flask(__name__, static_folder="static", static_url_path="/static")
 app.secret_key = "secretkey"
 ###
+
+# Get logged in user's email
+        user_email = session.get("email")
+# get the user id and assign it to be used
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT UserID FROM Database WHERE Email=?", (user_email,))
+        user = cursor.fetchone()
+
+        if not customer:
+            return jsonify({"error": "Customer not found"}), 404
+
+        user_id = customer["user_id"]  
+
+
 ###logging in
 @app.route("/login", methods=["POST"])
 def login():

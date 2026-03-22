@@ -52,7 +52,44 @@ def add():
     conn.close()
     return jsonify({"message": " added successfully"})
 
+##code to give list of items, example to populate dropdowns
+def get_variable():
+    conn=sqlite3.connect(DB_PATH)
+    cursor=conn.cursor()
+    cursor.execute("SELECT variable1,variable2,variable3,variable4,variable5 FROM Database")
+    rows=cursor.fetchall()
+    conn.close()
 
+    variables=[
+        {"variable1":r[0],
+         "variable2":r[1],
+         "variable3":r[2],
+         "variable4":r[3],
+         "variable5":r[4]
+         
+         }
+         for r in rows
+    ]
+    return variables
+
+
+#code to make it so pages can only be accessed when logged in
+
+@app.route("/")
+def index():
+    return render_template("index.html", name=session.get("name"))
+
+@app.route("/index")
+def home():
+    if "email" not in session:
+        return redirect("/login")
+    return render_template("index.html")
+
+@app.route("/example")
+def booking_page():
+    if "email" not in session:
+        return redirect("/login")
+    return render_template("example.html")
 ### 
 File structure
 FileName:

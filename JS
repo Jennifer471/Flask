@@ -65,3 +65,29 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(err => console.error("Error adding to database", err));
     });
 });
+
+
+##populate dropdowns
+document.addEventListener("DOMContentLoaded", () => {
+    const dropdown = document.getElementById("product");
+
+    fetch("/get-products")
+        .then(res => res.json())
+        .then(products => {
+            dropdown.innerHTML = ""; // clear "Loading..."
+
+            products.forEach(name => {
+                const option = document.createElement("option");
+                option.value = name;
+                option.textContent = name;
+                dropdown.appendChild(option);
+            });
+        })
+        .catch(err => {
+            console.error("Error loading products", err);
+            dropdown.innerHTML = "<option>Error loading products</option>";
+        });
+});
+
+
+

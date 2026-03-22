@@ -51,3 +51,12 @@ def add():
     conn.commit()
     conn.close()
     return jsonify({"message": " added successfully"})
+
+
+### 
+File structure
+FileName:
+Database
+Static:style
+Templates
+main file

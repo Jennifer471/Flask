@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener("DOMContentLoaded", () => {
     const dropdown = document.getElementById("product");
 
-    fetch("/get-products")
+    fetch("/get-items")
         .then(res => res.json())
         .then(products => {
             dropdown.innerHTML = ""; // clear "Loading..."
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch(err => {
             console.error("Error loading products", err);
-            dropdown.innerHTML = "<option>Error loading products</option>";
+            dropdown.innerHTML = "<option>Error loading Items</option>";
         });
 });
 

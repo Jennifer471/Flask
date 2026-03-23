@@ -3,6 +3,28 @@ app = Flask(__name__, static_folder="static", static_url_path="/static")
 app.secret_key = "secretkey"
 ###
 
+
+#code to make it so pages can only be accessed when logged in
+
+@app.route("/")
+def index():
+    return render_template("index.html", name=session.get("name"))
+
+@app.route("/index")
+def home():
+    if "email" not in session:
+        return redirect("/login")
+    return render_template("index.html")
+
+@app.route("/example")
+def booking_page():
+    if "email" not in session:
+        return redirect("/login")
+    return render_template("example.html")
+
+
+
+
 # Get logged in user's email
         user_email = session.get("email")
 # get the user id and assign it to be used
@@ -89,20 +111,3 @@ def get_variable():
     return variables
 
 
-#code to make it so pages can only be accessed when logged in
-
-@app.route("/")
-def index():
-    return render_template("index.html", name=session.get("name"))
-
-@app.route("/index")
-def home():
-    if "email" not in session:
-        return redirect("/login")
-    return render_template("index.html")
-
-@app.route("/example")
-def booking_page():
-    if "email" not in session:
-        return redirect("/login")
-    return render_template("example.html")

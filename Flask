@@ -12,8 +12,8 @@ app.secret_key = "secretkey"
         cursor.execute("SELECT UserID FROM Database WHERE Email=?", (user_email,))
         user = cursor.fetchone()
 
-        if not customer:
-            return jsonify({"error": "Customer not found"}), 404
+        if not User:
+            return jsonify({"error": "User not found"}), 404
 
         user_id = customer["user_id"]  
 
@@ -106,10 +106,3 @@ def booking_page():
     if "email" not in session:
         return redirect("/login")
     return render_template("example.html")
-### 
-File structure
-FileName:
-Database
-Static:style
-Templates
-main file

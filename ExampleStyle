@@ -42,6 +42,14 @@
     }
 
 
+/* Form wrapper */
+form {
+    width: 90%;
+    max-width: 500px;
+    margin: 2rem auto;
+}
+
+/* Login/Signup container */
 .login-container,
 .signup-container {
     background-color: #F2EFEA;
@@ -51,4 +59,45 @@
     margin: 2rem auto;
     opacity: 0.95;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Labels */
+label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: bold;
+}
+
+/* Inputs */
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 0.7rem;
+    margin-top: 0.4rem;
+    border: 1px solid #aaa;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+/* Buttons */
+button {
+    margin-top: 1.5rem;
+    padding: 0.8rem 1.6rem;
+    background-color: #000;
+    color: white;
+    border: none;
+    border-radius: 0.4rem;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+button:hover {
+    background-color: #007acc;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 1.5rem;
 }
